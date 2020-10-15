@@ -137,8 +137,10 @@ elseif (isset($_SESSION['mailcow_cc_role']) && $_SESSION['mailcow_cc_role'] == '
           <div class="col-md-9 col-xs-7">
             <p><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> <a href="/mobileconfig.php?only_email"><?=$lang['user']['email'];?></a> <small>IMAP, SMTP</small></p>
             <p class="help-block"><?=$lang['user']['apple_connection_profile_mailonly'];?></p>
+            <?php if (getenv('SKIP_SOGO') != "y") { ?>
             <p><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> <a href="/mobileconfig.php"><?=$lang['user']['email_and_dav'];?></a> <small>IMAP, SMTP, Cal/CardDAV</small></p>
             <p class="help-block"><?=$lang['user']['apple_connection_profile_complete'];?></p>
+            <?php } ?>
           </div>
         </div>
         <hr>
@@ -394,12 +396,12 @@ elseif (isset($_SESSION['mailcow_cc_role']) && $_SESSION['mailcow_cc_role'] == '
 				<div class="col-sm-10">
 				</div>
         <div class="btn-group" data-acl="<?=$_SESSION['acl']['spam_policy'];?>">
-          <a data-acl="<?=$_SESSION['acl']['spam_score'];?>" type="button" class="btn btn-sm btn-success" data-action="edit_selected"
+          <a type="button" class="btn btn-sm btn-success" data-action="edit_selected"
             data-item="<?= htmlentities($username); ?>"
             data-id="spam_score"
             data-api-url='edit/spam-score'
             data-api-attr='{}'><?=$lang['user']['save_changes'];?></a>
-          <a data-acl="<?=$_SESSION['acl']['spam_score'];?>" type="button" class="btn btn-sm btn-default" data-action="edit_selected"
+          <a type="button" class="btn btn-sm btn-default" data-action="edit_selected"
             data-item="<?= htmlentities($username); ?>"
             data-id="spam_score_reset"
             data-api-url='edit/spam-score'

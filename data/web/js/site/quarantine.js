@@ -56,7 +56,7 @@ jQuery(function($){
         {"name":"virus","title":lang.danger, "type": "text"},
         {"name":"score","title": lang.spam_score, "type": "text"},
         {"name":"notified","title":lang.notified, "type": "text"},
-        {"name":"created","formatter":function unix_time_format(tm) { var date = new Date(tm ? tm * 1000 : 0); return date.toLocaleString();},"title":lang.received,"style":{"width":"170px"}},
+        {"name":"created","formatter":function unix_time_format(tm) { var date = new Date(tm ? tm * 1000 : 0); return date.toLocaleDateString(undefined, {year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit"});},"title":lang.received,"style":{"width":"170px"}},
         {"name":"action","filterable": false,"sortable": false,"style":{"text-align":"right"},"style":{"min-width":"200px"},"type":"html","title":lang.action,"breakpoints":"xs sm md"}
       ],
       "rows": $.ajax({
@@ -144,7 +144,8 @@ jQuery(function($){
         $('#qid_detail_subj').text(data.subject);
         $('#qid_detail_text').text(data.text_plain);
         $('#qid_detail_text_from_html').text(data.text_html);
-
+        $('#qid_detail_hfrom').text(data.header_from);
+        $('#qid_detail_efrom').text(data.env_from);
         $('#qid_detail_score').text(data.score);
         $('#qid_detail_symbols').html('');
         if (typeof data.symbols !== 'undefined') {
@@ -173,7 +174,7 @@ jQuery(function($){
         if (typeof data.recipients !== 'undefined') {
           $.each(data.recipients, function(index, value) {
             var elem = $('<span class="mail-address-item"></span>');
-            elem.text(value.address + (value.type != 'to' ? (' (' + value.type.toUpperCase() + ')') : ''));
+            elem.text(value.address + ' (' + value.type.toUpperCase() + ')');
             $('#qid_detail_recipients').append(elem);
           });
         }
